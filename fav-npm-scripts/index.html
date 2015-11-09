@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html dir="LTR" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Favorite npm scripts</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://iamstarkov.com/rss.xml" title="Vladimir Starkov" rel="alternate" type="application/rss+xml">
+    <link href="/styles.css" rel="stylesheet">
+    <meta property="og:site_name" content="Vladimir Starkov">
+    <meta property="article:author" content="https://iamstarkov.com/about/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@iamstarkov">
+    <meta property="description" content="I use npm scripts a lot to automate things. What I need to automate?">
+    <meta name="og:url" content="fav-npm-scripts/">
+    <meta name="og:title" content="Favorite npm scripts">
+    <meta name="og:description" content="I use npm scripts a lot to automate things. What I need to automate?">
+  </head>
+  <body>
+    <div class="wrap"><a href="https://github.com/iamstarkov/iamstarkov.github.io/edit/premaster/2015-35-fav-npm-scripts.md" class="edit-link">edit on github</a>
+      <article>
+        <h1>Favorite npm scripts</h1><i>
+          <time>July 12, 2015</time></i><p>I use <a href="/npm-scripts-basics/">npm scripts</a> a lot to automate things. What I need to automate?</p>
+<ul>
+<li>ES6 handling</li>
+<li>Testing and coverage</li>
+<li>Publishing</li>
+</ul>
+<h2>Preparation</h2>
+<pre><code>npm install --save-dev babel isparta mocha coveralls
+# or
+npm i -D babel isparta mocha coveralls
+</code></pre>
+<h2>ES6 handling</h2>
+<p>Babel to the rescue! Babel is helping me to transpile and test my ES6 code.</p>
+<ul>
+<li><code>babel index.js &gt; index.es5.js</code> — regular <a href="https://babeljs.io/docs/usage/cli/">transpiling</a></li>
+<li><code>some.es6.js --require babel/register</code> — enable ES6 for your code with <a href="https://babeljs.io/docs/usage/require/"><code>--requre</code> hook</a></li>
+</ul>
+<p>I use require hook in development, and transpiling for publishing.</p>
+<h2>Testing and coverage</h2>
+<p>Test ES6 code and introduce <em>tdd</em> mode:</p>
+<pre><code>&quot;test&quot;: &quot;mocha --require babel/register&quot;,
+&quot;tdd&quot;: &quot;npm test -- --watch&quot;,
+</code></pre>
+<p>Obvious <code>coverage</code> script with <code>coveralls</code> one sending coverage report to coveralls service and <code>precoveralls</code> because <code>coveralls</code> need some reports to be able to send.</p>
+<pre><code>&quot;coverage&quot;: &quot;isparta cover _mocha index.js -- --require babel/register&quot;,
+&quot;precoveralls&quot;: &quot;npm run coverage&quot;,
+&quot;coveralls&quot;: &quot;coveralls &lt; coverage/lcov.info&quot;,
+</code></pre>
+<p>I prefer <code>pre/post</code> script approach instead of <code>&amp;&amp;</code> one, because <code>&amp;&amp;</code> is not working on Windows.</p>
+<h1>Publishing</h1>
+<p>As far as I need to publish ES5 code I need transpiling, and I have to do it every time before publishing. Ave <code>prepublish</code> script! After publishing I want to cleanup and push changes (bumped version and tag) to remote repository.</p>
+<pre><code>&quot;transpile&quot;: &quot;babel index.js &gt; index.es5.js&quot;,
+&quot;prepublish&quot;: &quot;npm run transpile&quot;,
+&quot;postpublish&quot;: &quot;rm *.es5.js &amp;&amp; git push --follow-tags&quot;
+</code></pre>
+<p>Also I need to point to ES5 version in <code>main</code> field in <code>package.json</code>:</p>
+<pre><code>&quot;main&quot;: &quot;index.es5.js&quot;,
+</code></pre>
+<p>Publishing process:</p>
+<pre><code>npm version patch &amp;&amp; npm publish
+</code></pre>
+<h2>Summary</h2>
+<p>Run:</p>
+<pre><code>npm i -D babel mocha isparta coveralls
+</code></pre>
+<p>Paste in pkg:</p>
+<pre><code>&quot;main&quot;: &quot;index.es5.js&quot;,
+&quot;scripts&quot;: {
+  &quot;test&quot;: &quot;mocha --require babel/register&quot;,
+  &quot;tdd&quot;: &quot;npm test -- --watch&quot;,
+  &quot;coverage&quot;: &quot;isparta cover _mocha index.js -- --require babel/register&quot;,
+  &quot;precoveralls&quot;: &quot;npm run coverage&quot;,
+  &quot;coveralls&quot;: &quot;coveralls &lt; coverage/lcov.info&quot;,
+  &quot;transpile&quot;: &quot;babel index.js &gt; index.es5.js&quot;,
+  &quot;prepublish&quot;: &quot;npm run transpile&quot;,
+  &quot;postpublish&quot;: &quot;rm *.es5.js &amp;&amp; git push --follow-tags&quot;
+},
+</code></pre>
+<p>I’m using these 8 scripts in almost every my projects for last few months. You can do it too.</p>
+<p><em>Just automate it,<br />
+your <a href="/">Vladimir Starkov</a></em></p>
+
+      </article>
+    </div>
+    <script type="text/javascript">
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', '5540883fde2e2639c70007e9');
+        t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+        t.src = 'https://track.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

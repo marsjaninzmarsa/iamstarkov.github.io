@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html dir="LTR" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to start with nodejs testing</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://iamstarkov.com/rss.xml" title="Vladimir Starkov" rel="alternate" type="application/rss+xml">
+    <link href="/styles.css" rel="stylesheet">
+    <meta property="og:site_name" content="Vladimir Starkov">
+    <meta property="article:author" content="https://iamstarkov.com/about/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@iamstarkov">
+    <meta property="description" content="yayify testing
+With this 5 minute intro I’ll show how to test your code with yayify example, which only add 'yay' to the end of the string. If you heard about testing and tdd, but still haven’t tried then this article is definitely for you.">
+    <meta name="og:url" content="start-with-testing/">
+    <meta name="og:image" content="https://i.imgur.com/Fe1uwiv.png">
+    <meta name="og:title" content="How to start with nodejs testing">
+    <meta name="og:description" content="yayify testing
+With this 5 minute intro I’ll show how to test your code with yayify example, which only add 'yay' to the end of the string. If you heard about testing and tdd, but still haven’t tried then this article is definitely for you.">
+  </head>
+  <body>
+    <div class="wrap"><a href="https://github.com/iamstarkov/iamstarkov.github.io/edit/premaster/2015-36-start-with-testing.md" class="edit-link">edit on github</a>
+      <article>
+        <h1>How to start with nodejs testing</h1><i>
+          <time>July 21, 2015</time></i><p><img src="https://i.imgur.com/Fe1uwiv.png" alt="yayify testing" /><br />
+With this 5 minute intro I’ll show how to test your code with <a href="https://github.com/iamstarkov/yayify">yayify</a> example, which only add 'yay' to the end of the string. If you heard about testing and tdd, but still haven’t tried then this article is definitely for you.</p>
+<p>Why do you need tests? Tests will get rid off endless improvement headache  at the start or refactoring fear after, also tests will help to verify changes in pull-requests.</p>
+<p>To start testing your modules, you will need <em>tools, workflow, tests itself and code to test for</em>.</p>
+<h2>Tools</h2>
+<p>To be able to write tests, you need <a href="https://npmjs.com/package/babel">babel</a> for <a href="https://git.io/es6features">es6</a>, <a href="https://npmjs.com/package/mocha">mocha</a> as a test-runner, and <a href="https://npmjs.com/package/assert">assert</a> to verify correct work of your module:</p>
+<pre><code>npm install --save-dev babel mocha assert
+# or
+npm i -D babel mocha assert
+</code></pre>
+<h2>Workflow</h2>
+<p>It‘s helpful to have <a href="fav-npm-scripts">script helpers</a> to simplify testing workflow. Add this lines to scripts field in package.json:</p>
+<pre><code class="language-json">&quot;test&quot;: &quot;mocha --require babel/register&quot;,
+&quot;tdd&quot;: &quot;npm test -- --watch&quot;,
+</code></pre>
+<p><code>test</code> is supposed to run to verify that everything is ok. <code>tdd</code> is supposed to be run while development to have instant feedback. Basically this will allow mocha to watch you index.js for modification and rerun tests on every change.</p>
+<h2>Tests</h2>
+<p>You need to import <code>yayify</code> module to test for and which you’ll write in the future; <code>equal</code> is super simple function from <a href="https://npmjs.com/package/assert">assert</a> module. Function <code>it</code> is inserted into global namespace by mocha to name your tests.</p>
+<p><a href="https://github.com/iamstarkov/yayify/blob/master/test.js">test.js</a>:</p>
+<pre><code>import yayify from './index';
+import { equal } from 'assert';
+
+it('should yayify', () =&gt; {
+  equal(yayify('tdd'), 'tdd yay')
+});
+</code></pre>
+<p>Congratulations! You just wrote your first tests. Was it hard? Don’t think so. Let’s continue. There are tests, but there is no <code>yayify</code> function to test for. Let’s fix this. For instant feedback while implementing <code>yayify</code> please run <code>npm run tdd</code> in terminal in a folder with your project.</p>
+<p>Then create <em><a href="https://github.com/iamstarkov/yayify/blob/master/index.js">index.js</a></em> and write there this line:</p>
+<pre><code>export default str =&gt; str + ' yay';
+</code></pre>
+<p>Look back to your terminal: green tests! You are awesome!</p>
+<p><img src="https://i.imgur.com/Fe1uwiv.png" alt="yayify testing" /></p>
+<p>Save and commit this good enough state of things.</p>
+<p>Have you heard about <a href="https://github.com/lukehoban/es6features#template-strings">es6 template strings</a>? Let’s use them:</p>
+<pre><code>export default str =&gt; `${str} + yay`;
+</code></pre>
+<p>Take a look at terminal again, green or red?</p>
+<p><img src="https://i.imgur.com/cLGlAfB.png" alt="red tests" /></p>
+<p>Tests should be red. It is because es6 template strings don’t need concatenation; you can write like this <code>${str} yay</code> and omit plus sign. Lets fix it:</p>
+<pre><code>export default str =&gt; `${str} yay`;
+</code></pre>
+<p>Take a look at your teminal last time:</p>
+<p><img src="https://i.imgur.com/Jb4kWAN.png" alt="" /></p>
+<p>Tests are green again!</p>
+<h2>Summary</h2>
+<p>You can find this module in <a href="https://github.com/iamstarkov/yayify">yayify</a> repo and play with it:</p>
+<pre><code>git clone https://github.com/iamstarkov/yayify.git
+cd yayify
+npm i
+npm test
+</code></pre>
+<p>I hope, you learned something new today and no longer afraid of node js testing, otherwise pls tell me about your <a href="https://twitter.com/iamstarkov">obstacles in twitter</a>.</p>
+<p><em>Keep it testable, keep is safe,<br />
+your testable <a href="/">Vladimir Starkov</a></em></p>
+
+      </article>
+    </div>
+    <script type="text/javascript">
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', '5540883fde2e2639c70007e9');
+        t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+        t.src = 'https://track.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>

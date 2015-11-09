@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html dir="LTR" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>How to get Twitter API tokens</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width">
+    <link href="https://iamstarkov.com/rss.xml" title="Vladimir Starkov" rel="alternate" type="application/rss+xml">
+    <link href="/styles.css" rel="stylesheet">
+    <meta property="og:site_name" content="Vladimir Starkov">
+    <meta property="article:author" content="https://iamstarkov.com/about/">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@iamstarkov">
+    <meta property="description" content="It maybe seems that start playing with Twitter API can be hard to start,
+but actually it’s not. First of all, you need to get tokens, to start.
+And this process is very easy.">
+    <meta name="og:url" content="get-twitter-tokens/">
+    <meta name="og:image" content="https://i.imgur.com/fnMGBQn.png">
+    <meta name="og:title" content="How to get Twitter API tokens">
+    <meta name="og:description" content="It maybe seems that start playing with Twitter API can be hard to start,
+but actually it’s not. First of all, you need to get tokens, to start.
+And this process is very easy.">
+  </head>
+  <body>
+    <div class="wrap"><a href="https://github.com/iamstarkov/iamstarkov.github.io/edit/premaster/2015-42-get-twitter-tokens.md" class="edit-link">edit on github</a>
+      <article>
+        <h1>How to get Twitter API tokens</h1><i>
+          <time>October 15, 2015</time></i><p>It maybe seems that start playing with <a href="https://dev.twitter.com/rest/public">Twitter API</a> can be hard to start,
+but actually it’s not. First of all, you need to get tokens, to start.
+And this process is very easy.</p>
+<ol>
+<li>Go to <a href="https://apps.twitter.com/app/new">&quot;Create new Twitter App&quot;</a> form.</li>
+<li>Fill it. Callback URL is not required.<br />
+<img src="https://i.imgur.com/fnMGBQn.png" alt="filled form" /></li>
+<li>Agree to &quot;Developer Agreement&quot;, submit form.</li>
+<li>Go to &quot;Keys and Access Tokens&quot; tab<br />
+<img src="https://i.imgur.com/C13BEpG.png" alt="&quot;Keys and Access Tokens&quot; tab" /></li>
+<li>At the bottom, you will find empty &quot;Your Access Token&quot; with <em>&quot;Create my access token&quot;</em> button, go ahead and click it.<br />
+<img src="https://i.imgur.com/bwClX9c.png" alt="&quot;Your Access Token&quot;" /></li>
+<li>Click <em>&quot;Test OAuth&quot;</em> button in the top right corner.<br />
+<img src="https://i.imgur.com/1GXcM1D.png" alt="&quot;Test OAuth&quot;" /></li>
+</ol>
+<p>Tokens are &quot;<strong>Consumer Key</strong>&quot;, &quot;<strong>Consumer Secret</strong>&quot; and &quot;<strong>Access Token</strong>&quot; with &quot;<strong>Access Token Secret</strong>&quot;:<br />
+<img src="https://i.imgur.com/trkuXvm.png" alt="app tokens in one place" /><br />
+or <code>TWITTER_CONSUMER_KEY</code>, <code>TWITTER_CONSUMER_SECRET</code> and <code>TWITTER_ACCESS_TOKEN_KEY</code>, <code>TWITTER_ACCESS_TOKEN_SECRET</code> if you will use them as environment variables.</p>
+<p><strong>Congratulations</strong>, you have Twitter API tokens.</p>
+<p>Be careful with them. Pay attention to small gray warning on the page:</p>
+<blockquote>
+<p>Keep the &quot;Consumer Secret&quot; a secret. This key should never be human-readable in your application.</p>
+</blockquote>
+<p>and</p>
+<blockquote>
+<p>This access token can be used to make API requests on your own account's behalf. Do not share your access token secret with anyone.</p>
+</blockquote>
+<p>Don’t commit it in your repo. Use environment variables instead.</p>
+<p><em>140 symbols ought to be enough for anybody,<br />
+your <a href="/">Vladimir Starkov</a></em></p>
+
+      </article>
+    </div>
+    <script type="text/javascript">
+      var _gauges = _gauges || [];
+      (function() {
+        var t   = document.createElement('script');
+        t.type  = 'text/javascript';
+        t.async = true;
+        t.id    = 'gauges-tracker';
+        t.setAttribute('data-site-id', '5540883fde2e2639c70007e9');
+        t.setAttribute('data-track-path', 'https://track.gaug.es/track.gif');
+        t.src = 'https://track.gaug.es/track.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(t, s);
+      })();
+    </script>
+  </body>
+</html>
